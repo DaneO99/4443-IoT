@@ -21,6 +21,7 @@
 │   └── ...
 ├── Labs/
 │   ├── lab1-IOT/
+│   ├── lab2-iot/
 │   └── ...
 └── README.md
 ```
@@ -43,3 +44,4 @@
 | Lab | Description | Link |
 |-----|-------------|------|
 | Lab 1 | IoT Lab 1 | [View Lab](./Labs/lab1-IOT/) |
+| Lab 2 | IoT Lab 2 | [View Lab](./Labs/lab2-iot/) |
