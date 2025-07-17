@@ -30,7 +30,7 @@ float measureDistanceCM() {
 
   long duration = pulseIn(echoPin, HIGH, 10000); // Short timeout for responsiveness
   if (duration == 0) {
-    return -1.0;
+    return -1.0; // No reading
   }
   return (duration * 0.0343) / 2.0;
 }
@@ -72,6 +72,7 @@ void setLEDFade(float distance) {
 }
 
 void loop() {
+  Serial.println("Loop running..."); // Debug, to verify loop is working
   float distance_cm = measureDistanceCM();
   Serial.print("Distance: ");
   Serial.print(distance_cm);
@@ -79,5 +80,5 @@ void loop() {
 
   setLEDFade(distance_cm);
 
-  delay(200);
+  delay(500);
 }
