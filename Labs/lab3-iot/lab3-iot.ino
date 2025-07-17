@@ -2,7 +2,7 @@
 const int trigPin = 7;
 const int echoPin = 8;
 
-// LED Pins (PWM capable, but used here as ON/OFF)
+// LED Pins (PWM-capable)
 const int green1 = 3;
 const int green2 = 5;
 const int yellow1 = 6;
@@ -14,10 +14,10 @@ void setup() {
   Serial.begin(9600);
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
-  
-  int pins[] = {green1, green2, yellow1, yellow2, red1, red2};
+
+  int pwmPins[] = {green1, green2, yellow1, yellow2, red1, red2};
   for (int i = 0; i < 6; i++) {
-    pinMode(pins[i], OUTPUT);
+    pinMode(pwmPins[i], OUTPUT);
   }
 }
 
@@ -28,44 +28,46 @@ float measureDistanceCM() {
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
 
-  long duration = pulseIn(echoPin, HIGH, 30000);
+  long duration = pulseIn(echoPin, HIGH, 10000); // Short timeout for responsiveness
   if (duration == 0) {
     return -1.0;
   }
   return (duration * 0.0343) / 2.0;
 }
 
-void setLEDZones(float distance) {
-  // Turn everything off first
-  int pins[] = {green1, green2, yellow1, yellow2, red1, red2};
-  for (int i = 0; i < 6; i++) {
-    digitalWrite(pins[i], LOW);
+void setLEDFade(float distance) {
+  int pwmPins[] = {green1, green2, yellow1, yellow2, red1, red2};
+  
+  if (distance < 0 || distance > 30) {
+    // No reading or beyond 30 cm -> all LEDs off
+    for (int i = 0; i < 6; i++) {
+      analogWrite(pwmPins[i], 0);
+    }
+    return;
   }
 
-  if (distance < 0) {
-    return; // No reading, keep all LEDs off
+  // Calculate brightness inversely proportional to distance
+  // Closer = brighter. 0cm = 255, 30cm = 0
+  int brightness = map(constrain(distance, 0, 30), 0, 30, 255, 0);
+
+  // Apply brightness to each color with gradual escalation
+  analogWrite(green1, brightness);
+  analogWrite(green2, brightness);
+
+  if (distance <= 20) {
+    analogWrite(yellow1, brightness);
+    analogWrite(yellow2, brightness);
+  } else {
+    analogWrite(yellow1, 0);
+    analogWrite(yellow2, 0);
   }
 
-  if (distance > 30) {
-    // Only green ON
-    digitalWrite(green1, HIGH);
-    digitalWrite(green2, HIGH);
-  }
-  else if (distance > 15) {
-    // Green and Yellow ON
-    digitalWrite(green1, HIGH);
-    digitalWrite(green2, HIGH);
-    digitalWrite(yellow1, HIGH);
-    digitalWrite(yellow2, HIGH);
-  }
-  else {
-    // Green, Yellow, and Red ON
-    digitalWrite(green1, HIGH);
-    digitalWrite(green2, HIGH);
-    digitalWrite(yellow1, HIGH);
-    digitalWrite(yellow2, HIGH);
-    digitalWrite(red1, HIGH);
-    digitalWrite(red2, HIGH);
+  if (distance <= 10) {
+    analogWrite(red1, brightness);
+    analogWrite(red2, brightness);
+  } else {
+    analogWrite(red1, 0);
+    analogWrite(red2, 0);
   }
 }
 
@@ -75,7 +77,7 @@ void loop() {
   Serial.print(distance_cm);
   Serial.println(" cm");
 
-  setLEDZones(distance_cm);
+  setLEDFade(distance_cm);
 
   delay(200);
 }
