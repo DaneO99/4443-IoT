@@ -1,37 +1,48 @@
-# Lab2-IoT: OLED Display Control
+# Lab 2: Distance Sensor with LEDs
 
 ## Overview
-This lab demonstrates controlling an OLED display using Arduino with I2C communication.
+This lab demonstrates using an HC-SR04 ultrasonic distance sensor to control LED zones based on proximity. The closer an object gets, the more LED zones light up.
 
 ## Hardware Setup
 
-### ✅ Wiring (I2C to Arduino Uno)
+### ✅ Wiring Instructions
 
-| OLED Pin | Arduino Uno Pin |
-|----------|----------------|
-| VCC      | 3.3V or 5V (depends on your module) |
-| GND      | GND |
-| SDA      | A4 |
-| SCL      | A5 |
+**HC-SR04 Ultrasonic Sensor:**
+| HC-SR04 Pin | Arduino Uno Pin |
+|-------------|----------------|
+| VCC         | 5V             |
+| GND         | GND            |
+| Trig        | Digital Pin 7  |
+| Echo        | Digital Pin 8  |
+
+**LEDs (with appropriate resistors):**
+| LED Color | Arduino Pins |
+|-----------|-------------|
+| Green     | Pins 3, 5   |
+| Yellow    | Pins 6, 9   |
+| Red       | Pins 10, 11 |
+
+### Distance Zones
+- **> 30cm**: Only green LEDs on (safe zone)
+- **15-30cm**: Green + yellow LEDs on (caution zone)
+- **< 15cm**: All LEDs on (danger zone)
 
 ## Software Requirements
 
-### ✅ Arduino IDE Libraries Required
+### ✅ No additional libraries required
+This project uses only built-in Arduino functions.
 
-You need to install the following libraries:
+## Possible Upgrades
 
-- **Adafruit SSD1306**
-- **Adafruit GFX Library**
-
-### Installation Steps
-
-1. Open Arduino IDE
-2. Go to **Sketch → Include Library → Manage Libraries…**
-3. Search for and install both libraries listed above
+1. **Audio Feedback**: Add a buzzer to provide different tones for each distance zone
+2. **PWM Effects**: Use PWM to create fading or pulsing LED effects
+3. **LCD Display**: Add an LCD to show exact distance measurements
+4. **Adjustable Thresholds**: Use potentiometers to adjust distance thresholds in real-time
+5. **Data Logging**: Log distance readings to SD card for analysis
+6. **Wireless Transmission**: Send distance data via Bluetooth or WiFi
 
 ## Files
 
-- **lab2-iot.ino** - Arduino sketch for OLED control
-- **IMG_3176.mov** - Video demonstration of the working project
+- **lab2-iot.ino** - Arduino sketch for distance sensor with LED control
 
 
