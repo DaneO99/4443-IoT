@@ -1,7 +1,7 @@
 # Lab 6: Weather API with Arduino
 
 ## Overview
-This lab creates a weather display system that fetches real-time weather data from OpenWeatherMap API and displays it on Arduino when an RFID tag is scanned.
+This lab creates a weather display system that fetches real-time weather data from the OpenWeatherMap API and displays it on Arduino when an RFID tag is scanned. The system utilizes RFID for user identification, an LCD for displaying city and weather conditions, and a NeoPixel strip to visually represent temperature changes.
 
 ## ⚠️ IMPORTANT: Execution Order
 
@@ -28,7 +28,7 @@ This lab creates a weather display system that fetches real-time weather data fr
 | MISO     | Pin 12          |
 | RST      | Pin 9           |
 
-**LCD Display (Optional for weather display):**
+**LCD Display (I2C 16x2):**
 | LCD Pin | Arduino Uno Pin |
 |---------|-----------------|
 | VCC     | 5V              |
@@ -36,16 +36,40 @@ This lab creates a weather display system that fetches real-time weather data fr
 | SDA     | A4              |
 | SCL     | A5              |
 
+**NeoPixel LED Strip (8 LEDs):**
+| NeoPixel Pin | Arduino Uno Pin |
+|-------------|-----------------|
+| VCC         | 5V              |
+| GND         | GND             |
+| Data        | Pin 6           |
+
 ## Software Requirements
 
 ### ✅ Arduino IDE Libraries
 - **MFRC522** library for RFID functionality
+- **LiquidCrystal_I2C** library for LCD display
+- **Adafruit_NeoPixel** library for LED strip control
+- **SPI** library (typically pre-installed)
+- **Wire** library (typically pre-installed)
 
 ### ✅ Python Requirements
 Install these Python packages:
 ```bash
 pip3 install pyserial requests
 ```
+
+## Arduino Code Functionality
+
+The Arduino sketch (`sketch_jul24e.ino`) provides:
+
+- **RFID Tag Reading**: Detects RFID tags and sends unique identifier via serial
+- **LCD Display Control**: Shows location and weather information on 16x2 I2C LCD
+- **Temperature Visualization**: Uses NeoPixel strip with color coding:
+  - **Blue** (< 40°F): Cold temperatures
+  - **Green** (40-70°F): Moderate temperatures  
+  - **Yellow** (70-90°F): Warm temperatures
+  - **Red** (> 90°F): Hot temperatures
+- **Serial Communication**: Handles incoming location and temperature data from Python script
 
 ## System Flow
 

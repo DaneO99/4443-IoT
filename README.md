@@ -43,5 +43,10 @@
 
 | Lab | Description | Link |
 |-----|-------------|------|
-| Lab 1 | IoT Lab 1 | [View Lab](./Labs/lab1-IOT/) |
-| Lab 2 | IoT Lab 2 | [View Lab](./Labs/lab2-iot/) |
+| Lab 1 | Arduino Basics & LED Control | [View Lab](./Labs/lab1-IOT/) |
+| Lab 2 | Sensor Integration | [View Lab](./Labs/lab2-iot/) |
+| Lab 3 | Basic Arduino Programming | [View Lab](./Labs/lab3-iot/) |
+| Lab 4 | Tetris Game with OLED Display | [View Lab](./Labs/labs4-iot/) |
+| Lab 5 | Temperature and Humidity Monitoring | [View Lab](./Labs/lab5-IOT/) |
+| Lab 6 | Weather API with Arduino | [View Lab](./Labs/lab6-IOT/) |
+| Lab 7 | Reaction Timer Game | [View Lab](./Labs/lab7-IOT/) |
