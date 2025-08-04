@@ -9,10 +9,10 @@ import requests
 import serial
 import time
 
-API_KEY        = "52d73842c1b33471f1d6d1d48ad9f87f"
+API_KEY        = "" #fill this out
 CITY_LIST_PATH = "city.list.json.gz"
 CITY_LIST_URL  = "https://bulk.openweathermap.org/sample/city.list.json.gz"
-PORT           = "/dev/tty.usbmodem4827E2DFBAD82"
+PORT           = "" #fill these out
 BAUD           = 115200
 
 def ensure_city_list(path, url):
