@@ -42,7 +42,7 @@ This project uses only built-in Arduino functions.
 6. **Wireless Transmission**: Send distance data via Bluetooth or WiFi
 
 ## Files
-
+<img src="./IMG_3176.mov">
 - **lab2-iot.ino** - Arduino sketch for distance sensor with LED control
 
 
